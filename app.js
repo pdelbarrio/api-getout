@@ -5,8 +5,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  res.send("First steps with Get Out API backend");
-});
+app.use(require("./routes"));
 
 module.exports = app;
