@@ -14,6 +14,15 @@ const spotSchema = new Schema(
     website: { type: String },
     validated: { type: Boolean, default: false },
     category: { type: String, enum: CATEGORIES, required: true },
+    location: {
+      type: {
+        type: String,
+        enum: ["Point"],
+      },
+      coordinates: {
+        type: [Number],
+      },
+    },
     uploader: { type: Schema.Types.ObjectId, ref: "User" },
     likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
   },
