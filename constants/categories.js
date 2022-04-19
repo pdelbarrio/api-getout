@@ -3,6 +3,7 @@ const CATEGORIES = [
   "views",
   "silence",
   "food",
+  "shops",
   "stand up",
   "weird",
   "random",
