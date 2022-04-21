@@ -66,4 +66,37 @@ describe("Testing spots API", () => {
       expect(response.body.error).toBeDefined();
     });
   });
+
+  describe("PUT /api/spots", () => {
+    let spot;
+    beforeEach(async () => {
+      spot = await Spot.create({
+        name: "test spot",
+        description: "A beautiful spot",
+        category: "views",
+      });
+    });
+
+    afterEach(async () => {
+      await Spot.findByIdAndDelete(spot._id);
+    });
+
+    it("The route works", async () => {
+      const response = await request(app).put(`/api/spots/${spot._id}`).send({
+        name: "spot updated",
+      });
+
+      expect(response.status).toBe(200);
+      expect(response.headers["content-type"]).toContain("json");
+    });
+
+    it("Is successfully updated", async () => {
+      const response = await request(app).put(`/api/spots/${spot._id}`).send({
+        name: "spot updated",
+      });
+
+      expect(response.body.name).toBe("spot updated");
+      expect(response.body._id).toBeDefined();
+    });
+  });
 });

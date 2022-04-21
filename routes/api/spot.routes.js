@@ -20,4 +20,15 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.put("/:spotId", async (req, res) => {
+  try {
+    const spotEdit = await Spot.findByIdAndUpdate(req.params.spotId, req.body, {
+      new: true,
+    });
+    res.json(spotEdit);
+  } catch (error) {
+    res.status(500).json({ error: "An error has ocurred" });
+  }
+});
+
 module.exports = router;
