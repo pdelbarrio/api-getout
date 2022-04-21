@@ -11,4 +11,13 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post("/", async (req, res) => {
+  try {
+    const newSpot = await Spot.create(req.body);
+    res.json(newSpot);
+  } catch (error) {
+    res.status(500).json({ error: "An error has ocurred" });
+  }
+});
+
 module.exports = router;
