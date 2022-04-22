@@ -99,4 +99,29 @@ describe("Testing spots API", () => {
       expect(response.body._id).toBeDefined();
     });
   });
+
+  describe("DELETE /api/spots", () => {
+    let spot;
+    let response;
+    beforeEach(async () => {
+      spot = await Spot.create({
+        name: "test spot",
+        description: "A beautiful spot",
+        category: "views",
+      });
+      response = await request(app).delete(`/api/spots/${spot._id}`).send();
+    });
+
+    it("The route works", () => {
+      expect(response.status).toBe(200);
+      expect(response.headers["content-type"]).toContain("json");
+    });
+
+    it("Deletes data successfully", async () => {
+      expect(response.body._id).toBeDefined();
+
+      const foundSpot = await Spot.findById(spot._id);
+      expect(foundSpot).toBeNull();
+    });
+  });
 });

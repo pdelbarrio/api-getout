@@ -11,6 +11,7 @@ const userSchema = new Schema(
       default:
         "https://res.cloudinary.com/parkfinder/image/upload/v1619196200/users/avatar_lkjiqe.png",
     },
+    isAdmin: { type: Boolean, default: false },
     spots: [{ type: Schema.Types.ObjectId, ref: "Spot" }],
     favSpots: [{ type: Schema.Types.ObjectId, ref: "Spot" }],
   },

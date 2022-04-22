@@ -31,4 +31,12 @@ router.put("/:spotId", async (req, res) => {
   }
 });
 
+router.delete("/:spotId", async (req, res) => {
+  try {
+    const spot = await Spot.findByIdAndDelete(req.params.spotId);
+    res.json(spot);
+  } catch (error) {
+    res.status(500).json({ error: "An error has ocurred" });
+  }
+});
 module.exports = router;
