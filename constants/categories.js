@@ -7,6 +7,8 @@ const CATEGORIES = [
   "stand up",
   "weird",
   "random",
+  "cinema",
+  "art",
 ];
 
 module.exports = {

@@ -1,31 +1,61 @@
 const request = require("supertest");
 const mongoose = require("mongoose");
-const app = require("../../app");
+// const app = require("../../app");
+const app = require("../../index");
+const config = require("../../config");
 
 const Spot = require("../../models/spot.model");
 
 describe("Testing spots API", () => {
   beforeAll(async () => {
-    await mongoose.connect("mongodb://127.0.0.1/spots");
+    await mongoose.connect(
+      `mongodb://${config.MONGO_HOST}/${config.MONGO_DATABASE}`
+    );
   });
 
   afterAll(async () => {
     await mongoose.disconnect();
   });
 
-  describe("GET /api/spots", () => {
+  describe("GET ALL /api/spots", () => {
     let response;
     beforeEach(async () => {
       response = await request(app).get("/api/spots").send();
     });
 
-    it("The route works", async () => {
+    it("Spots GET route works", async () => {
       expect(response.status).toBe(200);
       expect(response.headers["content-type"]).toContain("json");
     });
 
     it("The request returns an array of spots", async () => {
       expect(response.body).toBeInstanceOf(Array);
+    });
+  });
+
+  describe("GET one by id", () => {
+    let spot;
+    beforeEach(async () => {
+      spot = await Spot.create({
+        name: "test get spot by id",
+        description: "A beautiful spot",
+        category: "views",
+      });
+    });
+
+    afterEach(async () => {
+      await Spot.findByIdAndDelete(spot._id);
+    });
+
+    it("The Spots GET by id route works", async () => {
+      const response = await request(app).get(`/api/spots/${spot._id}`).send();
+      expect(response.status).toBe(200);
+      expect(response.headers["content-type"]).toContain("json");
+    });
+
+    it("The request returns the requested spot", async () => {
+      expect(response.body._id).toBeDefined();
+      expect(response.body.name).toBe("test get spot by id");
     });
   });
 
@@ -45,7 +75,7 @@ describe("Testing spots API", () => {
       await Spot.deleteMany({ name: "test spot" });
     });
 
-    it("The route works", async () => {
+    it("Spots POST route works", async () => {
       const response = await request(app).post("/api/spots").send(newSpot);
 
       expect(response.status).toBe(200);
@@ -81,7 +111,7 @@ describe("Testing spots API", () => {
       await Spot.findByIdAndDelete(spot._id);
     });
 
-    it("The route works", async () => {
+    it("Spots PUT route works", async () => {
       const response = await request(app).put(`/api/spots/${spot._id}`).send({
         name: "spot updated",
       });
@@ -112,7 +142,7 @@ describe("Testing spots API", () => {
       response = await request(app).delete(`/api/spots/${spot._id}`).send();
     });
 
-    it("The route works", () => {
+    it("Spots DELETE route works", () => {
       expect(response.status).toBe(200);
       expect(response.headers["content-type"]).toContain("json");
     });
