@@ -1,4 +1,5 @@
 const SpotRoutes = require("express").Router();
+const { authorize } = require("../../middleware/authorize");
 const {
   getAll,
   create,

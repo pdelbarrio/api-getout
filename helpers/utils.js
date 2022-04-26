@@ -7,6 +7,11 @@ const setError = (code, message) => {
   return error;
 };
 
+const verifyToken = (token) => {
+  return jwt.verify(token, process.env.JWT_SECRET);
+};
+
 module.exports = {
   setError,
+  verifyToken,
 };
