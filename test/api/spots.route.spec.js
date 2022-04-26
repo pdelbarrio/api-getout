@@ -33,8 +33,6 @@ describe("Testing spots API", () => {
     });
   });
 
-  // TODO: See how can I test this route successfully
-
   describe("GET one by id", () => {
     let spot;
     beforeEach(async () => {
@@ -51,14 +49,16 @@ describe("Testing spots API", () => {
 
     it("The Spots GET by id route works", async () => {
       const response = await request(app).get(`/api/spots/${spot._id}`).send();
+
       expect(response.status).toBe(200);
       expect(response.headers["content-type"]).toContain("json");
     });
 
     it("The request returns the requested spot", async () => {
       const response = await request(app).get(`/api/spots/${spot._id}`).send();
-      expect(response.body._id).toBeDefined();
-      expect(response.body.name).toBe("test get spot by id");
+
+      expect(response.body.data._id).toBeDefined();
+      expect(response.body.data.name).toBe("test get spot by id");
     });
   });
 
