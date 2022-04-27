@@ -33,7 +33,7 @@ describe("Testing spots API", () => {
     });
   });
 
-  describe("GET one by id", () => {
+  describe("GET by id /api/spots/:id", () => {
     let spot;
     beforeEach(async () => {
       spot = await Spot.create({
@@ -100,7 +100,7 @@ describe("Testing spots API", () => {
     });
   });
 
-  describe("PUT /api/spots", () => {
+  describe("PUT /api/spots/:id", () => {
     let spot;
     beforeEach(async () => {
       spot = await Spot.create({

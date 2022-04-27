@@ -8,8 +8,6 @@ const {
   deleteSpot,
 } = require("../../controllers/spot.controller");
 
-const Spot = require("../../models/spot.model");
-
 SpotRoutes.get("/", getAll);
 SpotRoutes.get("/:id", getById);
 SpotRoutes.post("/", create);

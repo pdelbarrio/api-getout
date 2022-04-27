@@ -11,6 +11,8 @@ const { connectDb } = require("./helpers/db");
 const { setError } = require("./helpers/utils");
 const res = require("express/lib/response");
 
+const PORT = process.env.PORT || 4000;
+
 const app = express();
 
 connectDb();

@@ -27,4 +27,34 @@ describe("Testing users API", () => {
       expect(response.headers["content-type"]).toContain("json");
     });
   });
+
+  describe("Get user by id /api/users/:id", () => {
+    let user;
+    beforeEach(async () => {
+      user = await User.create({
+        username: "testuser2",
+        email: "test2@mail.com",
+        password: "1234",
+      });
+    });
+
+    afterEach(async () => {
+      await User.findByIdAndDelete(user._id);
+    });
+
+    it("Get users by id route works", async () => {
+      const response = await request(app).get(`/api/users/${user._id}`).send();
+
+      expect(response.status).toBe(200);
+      expect(response.headers["content-type"]).toContain("json");
+    });
+
+    it("The request returns the requested user", async () => {
+      const response = await request(app).get(`/api/users/${user._id}`).send();
+
+      expect(response.body._id).toBeDefined();
+      console.log("RESPONSE BODY", response.body);
+      expect(response.body.username).toBe("testuser2");
+    });
+  });
 });
