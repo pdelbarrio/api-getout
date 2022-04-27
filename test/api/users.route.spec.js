@@ -2,7 +2,6 @@ const request = require("supertest");
 const mongoose = require("mongoose");
 const app = require("../../index");
 const config = require("../../config");
-
 const User = require("../../models/user.model");
 
 describe("Testing users API", () => {
@@ -53,7 +52,6 @@ describe("Testing users API", () => {
       const response = await request(app).get(`/api/users/${user._id}`).send();
 
       expect(response.body._id).toBeDefined();
-      console.log("RESPONSE BODY", response.body);
       expect(response.body.username).toBe("testuser2");
     });
   });

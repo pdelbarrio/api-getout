@@ -10,20 +10,6 @@ const getUserData = async (req, res) => {
   }
 };
 
-// const getById = async (req, res, next) => {
-//   try {
-//     const { id } = req.params;
-//     console.log(req.params);
-//     console.log(req.user.id);
-//     if (id != req.user.id) return next(setError(403, "Forbidden"));
-//     const user = await User.findById(id);
-//     if (!user) return next(setError(404, "User not found"));
-//     return res.json(user);
-//   } catch (error) {
-//     return next(setError(500, "Failed recover user"));
-//   }
-// };
-
 const getById = async (req, res, next) => {
   const { id } = req.params;
   const userFound = await User.findById(id);
@@ -31,4 +17,19 @@ const getById = async (req, res, next) => {
   return res.json(userFound);
 };
 
-module.exports = { getUserData, getById };
+const create = async (req, res, next) => {
+  try {
+    const newUser = new User(req.body);
+    console.log("NEW USER IN CONTROLLER", newUser);
+    const userExist = await User.findOne({ email: newUser.email });
+    // if (userExist) return next(setError(409, "This Email already exists"));
+
+    const userInBd = await newUser.save();
+    return res.status(201).json(userInBd);
+  } catch (error) {
+    console.log(error);
+    return next(setError(500, error.message || "Failed to create user"));
+  }
+};
+
+module.exports = { getUserData, getById, create };
