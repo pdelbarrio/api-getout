@@ -55,4 +55,42 @@ describe("Testing users API", () => {
       expect(response.body.username).toBe("testuser2");
     });
   });
+
+  describe("Route POST create users /api/users", () => {
+    let newUser;
+    let wrongUser;
+    beforeEach(async () => {
+      newUser = {
+        username: "testuser",
+        email: "testmail@mail.com",
+        password: 1234,
+      };
+      wrongUser = { badname: "badtest" };
+    });
+
+    afterAll(async () => {
+      await User.deleteMany({ username: "testuser" });
+    });
+
+    it("Route works fine", async () => {
+      const response = await request(app).post("/api/users").send(newUser);
+
+      expect(response.status).toBe(201);
+      expect(response.headers["content-type"]).toContain("json");
+    });
+
+    it("User created successfully", async () => {
+      const response = await request(app).post("/api/users").send(newUser);
+
+      expect(response.body._id).toBeDefined();
+      expect(response.body.name).toBe(newUser.name);
+    });
+
+    it("Error creating user", async () => {
+      const response = await request(app).post("/api/users").send(wrongUser);
+
+      expect(response.status).toBe(500);
+      expect(response.body.error).toBeDefined();
+    });
+  });
 });
