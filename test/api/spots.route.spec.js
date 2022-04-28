@@ -87,8 +87,6 @@ describe("Testing spots API", () => {
     it("The SPOT data is properly inserted", async () => {
       const response = await request(app).post("/api/spots").send(newSpot);
 
-      console.log("RESPONSE SPOT", response.body);
-
       expect(response.body._id).toBeDefined();
       expect(response.body.name).toBe(newSpot.name);
     });
