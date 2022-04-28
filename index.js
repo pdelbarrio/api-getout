@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 
 // FIXME: (Commented during tests)
-// connectDb();
+connectDb();
 
 app.use((_req, res, next) => {
   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH");
@@ -36,7 +36,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // FIXME: (Commented during tests)
-// app.use(morgan("dev"));
+app.use(morgan("dev"));
 
 //Routes
 app.use("/api/users", UserRoutes);
@@ -57,8 +57,8 @@ app.use((error, _req, res, _next) => {
 const server = http.createServer(app);
 
 // Open Server FIXME: (Commented during tests)
-// app.listen(PORT, () => {
-//   console.log(`Server listening on port ${PORT}`);
-// });
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+});
 
 module.exports = app;

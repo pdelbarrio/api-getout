@@ -19,17 +19,29 @@ const getById = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const newUser = new User(req.body);
+    const newUser = await new User(req.body);
     console.log("NEW USER IN CONTROLLER", newUser);
     const userExist = await User.findOne({ email: newUser.email });
-    // if (userExist) return next(setError(409, "This Email already exists"));
+    if (userExist) return next(setError(409, "This Email already exists"));
 
     const userInBd = await newUser.save();
     return res.status(201).json(userInBd);
+    // const newUser = await User.create(req.body);
+    // return res.status(201).json(newUser);
   } catch (error) {
     console.log(error);
     return next(setError(500, error.message || "Failed to create user"));
   }
 };
+
+// const create = async (req, res, next) => {
+
+//   try {
+//     const newUser = await User.create(req.body);
+//     return res.status(201).json(newUser);
+//   } catch (error) {
+//     res.status(500).json({ error: "An error has ocurred" });
+//   }
+// };
 
 module.exports = { getUserData, getById, create };

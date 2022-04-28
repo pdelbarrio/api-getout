@@ -1,6 +1,5 @@
 const request = require("supertest");
 const mongoose = require("mongoose");
-// const app = require("../../app");
 const app = require("../../index");
 const config = require("../../config");
 
@@ -62,7 +61,7 @@ describe("Testing spots API", () => {
     });
   });
 
-  describe("POST /api/spots", () => {
+  describe("Route POST create spots /api/spots", () => {
     const newSpot = {
       name: "test spot",
       description: "Barcelona is full of spots",
@@ -85,8 +84,10 @@ describe("Testing spots API", () => {
       expect(response.headers["content-type"]).toContain("json");
     });
 
-    it("The data is properly inserted", async () => {
+    it("The SPOT data is properly inserted", async () => {
       const response = await request(app).post("/api/spots").send(newSpot);
+
+      console.log("RESPONSE SPOT", response.body);
 
       expect(response.body._id).toBeDefined();
       expect(response.body.name).toBe(newSpot.name);

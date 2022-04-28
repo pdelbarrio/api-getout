@@ -15,7 +15,7 @@ describe("Testing users API", () => {
     await mongoose.disconnect();
   });
 
-  describe("GET /api/users", () => {
+  describe("GET ALL /api/users", () => {
     let response;
     beforeEach(async () => {
       response = await request(app).get("/api/users").send();
@@ -57,16 +57,12 @@ describe("Testing users API", () => {
   });
 
   describe("Route POST create users /api/users", () => {
-    let newUser;
-    let wrongUser;
-    beforeEach(async () => {
-      newUser = {
-        username: "testuser",
-        email: "testmail@mail.com",
-        password: 1234,
-      };
-      wrongUser = { badname: "badtest" };
-    });
+    const newUser = {
+      username: "testuser",
+      email: "testmail@mail.com",
+      password: 1234,
+    };
+    const wrongUser = { badname: "badtest" };
 
     afterAll(async () => {
       await User.deleteMany({ username: "testuser" });
@@ -79,8 +75,10 @@ describe("Testing users API", () => {
       expect(response.headers["content-type"]).toContain("json");
     });
 
-    it("User created successfully", async () => {
+    it("The USER data is properly inserted", async () => {
       const response = await request(app).post("/api/users").send(newUser);
+
+      console.log("RESPONSE USER", response);
 
       expect(response.body._id).toBeDefined();
       expect(response.body.name).toBe(newUser.name);
