@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const bcrypt = require("bcrypt");
+const { validationPassword } = require("../helpers/utils");
 
 const userSchema = new Schema(
   {
@@ -19,5 +21,13 @@ const userSchema = new Schema(
     timestamps: true,
   }
 );
+
+userSchema.pre("save", function (next) {
+  if (!validationPassword(this.password)) {
+    return next(400, "Password does not meet the requirements");
+  }
+  this.password = bcrypt.hashSync(this.password, 10);
+  next();
+});
 
 module.exports = mongoose.model("User", userSchema);
