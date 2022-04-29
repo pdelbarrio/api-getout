@@ -1,4 +1,4 @@
-const { setError, verifyToken } = require("../helpers/utils.js");
+const { setError, verifyToken } = require("../helpers/utils");
 const User = require("../models/user.model");
 
 const authorize = async (req, _res, next) => {

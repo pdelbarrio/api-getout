@@ -12,26 +12,35 @@ const getUserData = async (req, res) => {
 };
 
 const getById = async (req, res, next) => {
-  const { id } = req.params;
-  const userFound = await User.findById(id);
-  if (!userFound) return next(setError, "User not found");
-  return res.json(userFound);
+  try {
+    const { id } = req.params;
+    const userFound = await User.findById(id);
+    if (!userFound) return next(setError(404, "User not found"));
+    return res.json({
+      status: 200,
+      message: "User info",
+      data: { user: userFound },
+    });
+  } catch (error) {
+    return next(setError(500, "Unexpected get error"));
+  }
 };
 
+//Register user
 const create = async (req, res, next) => {
   try {
-    const newUser = await new User(req.body);
+    const newUser = new User(req.body);
     const userExist = await User.findOne({ email: newUser.email });
     if (userExist) return next(setError(409, "This Email already exists"));
 
     const userInBd = await newUser.save();
     return res.status(201).json(userInBd);
   } catch (error) {
-    console.log(error);
     return next(setError(500, error.message || "Failed to create user"));
   }
 };
 
+//Login user
 const authenticate = async (req, res, next) => {
   try {
     const userInBd = await User.findOne({ email: req.body.email });

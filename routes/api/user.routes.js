@@ -17,7 +17,7 @@ const userCreateRateLimit = rateLimit({
 
 UserRoutes.get("/", [authorize], getUserData);
 UserRoutes.get("/:id", [authorize], getById);
-UserRoutes.post("/", [userCreateRateLimit], create);
+UserRoutes.post("/register", [userCreateRateLimit], create);
 UserRoutes.post("/login", authenticate);
 //TODO LOGOUT
 

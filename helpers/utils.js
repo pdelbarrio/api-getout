@@ -20,8 +20,8 @@ const setError = (code, message) => {
   return error;
 };
 
-const generateToken = (id, mail) => {
-  return jwt.sign({ id, mail }, process.env.JWT_SECRET, { expiresIn: "1d" });
+const generateToken = (id, email) => {
+  return jwt.sign({ id, email }, process.env.JWT_SECRET, { expiresIn: "1d" });
 };
 
 const verifyToken = (token) => {
