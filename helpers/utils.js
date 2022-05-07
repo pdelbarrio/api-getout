@@ -2,8 +2,8 @@ const jwt = require("jsonwebtoken");
 
 const validationPassword = (password) => {
   const response =
-    //8 caracteres minimo, una mayúscula, una minúscula, un numero, un simbolo y espacios
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$/;
+    //The field must have 1 uppercase, 1 lowercase and at least 1 number
+    /^(?:(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*)$/;
   return response.test(String(password));
 };
 

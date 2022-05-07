@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
-const { validationPassword } = require("../helpers/utils");
+const { validationPassword, setError } = require("../helpers/utils");
 
 const userSchema = new Schema(
   {
@@ -24,7 +24,7 @@ const userSchema = new Schema(
 
 userSchema.pre("save", function (next) {
   if (!validationPassword(this.password)) {
-    return next(400, "Password does not meet the requirements");
+    return next(setError(400, "Invalid password"));
   }
   this.password = bcrypt.hashSync(this.password, 10);
   next();
