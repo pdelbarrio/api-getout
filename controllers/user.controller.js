@@ -3,13 +3,24 @@ const bcrypt = require("bcrypt");
 const { setError, generateToken } = require("../helpers/utils");
 
 const getUserData = async (req, res) => {
-  try {
-    const users = await User.find();
-    res.json(users);
-  } catch (error) {
-    res.status(500).json({ error: "An error has ocurred" });
-  }
+  const { user } = req;
+
+  const { password, __v, createdAt, ...restUser } = user.toObject();
+
+  return res.json({
+    status: 200,
+    message: "User info",
+    data: restUser,
+  });
 };
+// const getUserData = async (req, res) => {
+//   try {
+//     const users = await User.find();
+//     res.json(users);
+//   } catch (error) {
+//     res.status(500).json({ error: "An error has ocurred" });
+//   }
+// };
 
 const getById = async (req, res, next) => {
   try {
