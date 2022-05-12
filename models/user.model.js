@@ -11,7 +11,7 @@ const userSchema = new Schema(
     avatar: {
       type: String,
       default:
-        "https://res.cloudinary.com/parkfinder/image/upload/v1619196200/users/avatar_lkjiqe.png",
+        "https://res.cloudinary.com/getoutbcn/image/upload/v1619196200/users/avatar_lkjiqe.png",
     },
     isAdmin: { type: Boolean, default: false },
     spots: [{ type: Schema.Types.ObjectId, ref: "Spot" }],

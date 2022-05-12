@@ -9,7 +9,7 @@ const spotSchema = new Schema(
     images: {
       type: String,
       default:
-        "https://res.cloudinary.com/parkfinder/image/upload/v1650377841/getout/defaultspot_g6za3l.png",
+        "https://res.cloudinary.com/getoutbcn/image/upload/v1652182177/getout/samplespot_dhggsh.jpg",
     },
     website: { type: String },
     validated: { type: Boolean, default: false },
