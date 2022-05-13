@@ -15,8 +15,8 @@ const spotSchema = new Schema(
     validated: { type: Boolean, default: false },
     category: { type: String, enum: CATEGORIES, required: true },
     location: { type: String, required: true },
-    uploader: { type: Schema.Types.ObjectId, ref: "User" },
-    likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    uploader: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    likes: [{ type: Schema.Types.ObjectId, ref: "User", required: true }],
   },
   {
     timestamps: true,

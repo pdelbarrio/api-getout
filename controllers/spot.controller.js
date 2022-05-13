@@ -24,12 +24,29 @@ const getById = async (req, res, next) => {
   }
 };
 
+// const create = async (req, res, next) => {
+//   try {
+//     const newSpot = await Spot.create(req.body);
+//     res.json(newSpot);
+//   } catch (error) {
+//     res.status(500).json({ error: "An error has ocurred" });
+//   }
+// };
+
 const create = async (req, res, next) => {
   try {
-    const newSpot = await Spot.create(req.body);
-    res.json(newSpot);
+    const spot = new Spot({ ...req.body, uploader: req.user._id });
+    console.log(req);
+    const spotInBd = await spot.save();
+
+    return res.json({
+      status: 201,
+      message: "Created new spot",
+      data: { spot: spotInBd },
+    });
   } catch (error) {
-    res.status(500).json({ error: "An error has ocurred" });
+    console.log(error);
+    return next(setError(500, error.message | "Failed to create spot"));
   }
 };
 

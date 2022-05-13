@@ -1,14 +1,15 @@
 const CATEGORIES = [
-  "live music",
-  "views",
-  "silence",
-  "food",
-  "shops",
-  "stand up",
-  "weird",
-  "random",
-  "cinema",
-  "art",
+  "Live Music",
+  "Food",
+  "Shops",
+  "Stand Up",
+  "Cinema",
+  "Views",
+  "Silence",
+  "Weird",
+  "Art",
+  "Architecture",
+  "Random",
 ];
 
 module.exports = {

@@ -8,10 +8,10 @@ const {
   deleteSpot,
 } = require("../../controllers/spot.controller");
 
-SpotRoutes.get("/", getAll);
-SpotRoutes.get("/:id", getById);
-SpotRoutes.post("/", create);
-SpotRoutes.put("/:id", update);
-SpotRoutes.delete("/:id", deleteSpot);
+SpotRoutes.get("/", [authorize], getAll);
+SpotRoutes.get("/:id", [authorize], getById);
+SpotRoutes.post("/", [authorize], create);
+SpotRoutes.put("/:id", [authorize], update);
+SpotRoutes.delete("/:id", [authorize], deleteSpot);
 
 module.exports = SpotRoutes;
