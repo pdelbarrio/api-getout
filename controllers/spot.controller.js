@@ -1,23 +1,16 @@
 const Spot = require("../models/spot.model");
 const { setError } = require("../helpers/utils");
 
-// const getAll = async (req, res, next) => {
-//   try {
-//     const spots = await Spot.find();
-//     res.json(spots);
-//   } catch (error) {
-//     res.status(500).json({ error: "An error has ocurred" });
-//   }
-// };
-
 const getAll = async (req, res, next) => {
   try {
     // const page = req.query.page ? parseInt(req.query.page) : 1;
     // const skip = (page - 1) * 20;
-    const spots = await Spot.find().populate("uploader").limit(20);
+    const spots = await Spot.find()
+      .sort({ createdAt: "desc" })
+      .populate("uploader")
+      .limit(20);
 
-    return res.json({
-      status: 200,
+    return res.status(200).json({
       message: "Recovered all spots",
       data: { spots: spots },
     });
@@ -31,6 +24,7 @@ const getById = async (req, res, next) => {
     const { id } = req.params;
     const foundSpot = await Spot.findById(id);
     if (!foundSpot) return next(setError(404, "Code not found"));
+
     return res.status(200).json({
       message: "Retrieved spot by id",
       data: foundSpot,
@@ -40,27 +34,18 @@ const getById = async (req, res, next) => {
   }
 };
 
-// const create = async (req, res, next) => {
-//   try {
-//     const newSpot = await Spot.create(req.body);
-//     res.json(newSpot);
-//   } catch (error) {
-//     res.status(500).json({ error: "An error has ocurred" });
-//   }
-// };
-
 const create = async (req, res, next) => {
   try {
     const spot = new Spot({ ...req.body, uploader: req.user._id });
 
     const spotInBd = await spot.save();
 
-    return res.json({
-      status: 201,
+    return res.status(201).json({
       message: "Created new spot",
       data: { spot: spotInBd },
     });
   } catch (error) {
+    console.log(error);
     return next(setError(500, error.message | "Failed to create spot"));
   }
 };
