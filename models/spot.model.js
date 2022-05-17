@@ -4,9 +4,9 @@ const Schema = mongoose.Schema;
 
 const spotSchema = new Schema(
   {
-    name: { type: String, required: true },
+    name: { type: String, required: true, unique: true },
     description: { type: String, required: true },
-    image: { type: String, required: true },
+    image: { type: String },
     website: { type: String },
     validated: { type: Boolean, default: false },
     category: { type: String, enum: CATEGORIES, required: true },
