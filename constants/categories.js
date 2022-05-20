@@ -9,7 +9,8 @@ const CATEGORIES = [
   "weird",
   "art",
   "architecture",
-  "random",
+  "not-spots",
+  "random"
 ];
 
 module.exports = {

@@ -37,6 +37,7 @@ const getById = async (req, res, next) => {
 const create = async (req, res, next) => {
   try {
     const spot = new Spot({ ...req.body, uploader: req.user._id });
+    //const spot = new Spot({ ...req.body, uploader: req.user._id, {new: true} });
 
     const spotInBd = await spot.save();
 

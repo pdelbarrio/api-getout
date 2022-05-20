@@ -6,7 +6,11 @@ const spotSchema = new Schema(
   {
     name: { type: String, required: true, unique: true },
     description: { type: String, required: true },
-    image: { type: String },
+    image: {
+      type: String,
+      default:
+        "https://res.cloudinary.com/getoutbcn/image/upload/v1652182177/getout/samplespot_dhggsh.jpg",
+    },
     website: { type: String },
     validated: { type: Boolean, default: false },
     category: { type: String, enum: CATEGORIES, required: true },
