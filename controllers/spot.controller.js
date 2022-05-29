@@ -1,4 +1,5 @@
 const Spot = require("../models/spot.model");
+const User = require("../models/user.model");
 const { setError } = require("../helpers/utils");
 
 const getValidated = async (req, res, next) => {
@@ -18,6 +19,7 @@ const getValidated = async (req, res, next) => {
     return next(setError(500, "Failed to retrieve all spots"));
   }
 };
+
 const getAll = async (req, res, next) => {
   try {
     // const page = req.query.page ? parseInt(req.query.page) : 1;
@@ -91,4 +93,42 @@ const deleteSpot = async (req, res, next) => {
     return next(setError(500, "Failed to delete spot"));
   }
 };
-module.exports = { getAll, getById, create, update, deleteSpot, getValidated };
+
+const addToFavorites = async (req, res, next) => {
+  console.log(req.body);
+  console.log(req.user);
+  const { spotID } = req.body;
+  // console.log(req.user)
+  const { _id: userID } = req.user;
+  // console.log(req.body);
+  User.findById(userID)
+    .then((user) => {
+      if (user) {
+        const { favorites } = user;
+        if (!favorites.includes(spotID)) {
+          User.findByIdAndUpdate(
+            userID,
+            { $push: { favorites: spotID } },
+            { new: true }
+          )
+            .then((user) => res.redirect(`/spots/${spotID}`))
+            .catch((error) => next(error));
+        } else {
+          res.redirect(`spots/${spotID}`);
+        }
+      } else {
+        res.redirect(`spots/${spotID}`);
+      }
+    })
+    .catch((error) => next(error));
+};
+
+module.exports = {
+  getAll,
+  getById,
+  create,
+  update,
+  deleteSpot,
+  getValidated,
+  addToFavorites,
+};

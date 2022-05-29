@@ -6,6 +6,7 @@ const {
   getById,
   create,
   authenticate,
+  addToFavorites,
 } = require("../../controllers/user.controller");
 
 const userCreateRateLimit = rateLimit({
@@ -19,6 +20,7 @@ UserRoutes.get("/", [authorize], getUserData);
 UserRoutes.get("/:id", [authorize], getById);
 UserRoutes.post("/register", [userCreateRateLimit], create);
 UserRoutes.post("/login", authenticate);
+// UserRoutes.post("/addfavorites", [authorize], addToFavorites); //TODO:
 //TODO LOGOUT
 
 module.exports = UserRoutes;
