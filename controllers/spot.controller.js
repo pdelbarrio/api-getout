@@ -1,5 +1,4 @@
 const Spot = require("../models/spot.model");
-const User = require("../models/user.model");
 const { setError } = require("../helpers/utils");
 
 const getValidated = async (req, res, next) => {
@@ -94,34 +93,34 @@ const deleteSpot = async (req, res, next) => {
   }
 };
 
-const addToFavorites = async (req, res, next) => {
-  console.log(req.body);
-  console.log(req.user);
-  const { spotID } = req.body;
-  // console.log(req.user)
-  const { _id: userID } = req.user;
-  // console.log(req.body);
-  User.findById(userID)
-    .then((user) => {
-      if (user) {
-        const { favorites } = user;
-        if (!favorites.includes(spotID)) {
-          User.findByIdAndUpdate(
-            userID,
-            { $push: { favorites: spotID } },
-            { new: true }
-          )
-            .then((user) => res.redirect(`/spots/${spotID}`))
-            .catch((error) => next(error));
-        } else {
-          res.redirect(`spots/${spotID}`);
-        }
-      } else {
-        res.redirect(`spots/${spotID}`);
-      }
-    })
-    .catch((error) => next(error));
-};
+// const addToFavorites = async (req, res, next) => {
+//   console.log(req.body);
+//   console.log(req.user);
+//   const { spotID } = req.body;
+//   // console.log(req.user)
+//   const { _id: userID } = req.user;
+//   // console.log(req.body);
+//   User.findById(userID)
+//     .then((user) => {
+//       if (user) {
+//         const { favorites } = user;
+//         if (!favorites.includes(spotID)) {
+//           User.findByIdAndUpdate(
+//             userID,
+//             { $push: { favorites: spotID } },
+//             { new: true }
+//           )
+//             .then((user) => res.redirect(`/spots/${spotID}`))
+//             .catch((error) => next(error));
+//         } else {
+//           res.redirect(`spots/${spotID}`);
+//         }
+//       } else {
+//         res.redirect(`spots/${spotID}`);
+//       }
+//     })
+//     .catch((error) => next(error));
+// };
 
 module.exports = {
   getAll,
@@ -130,5 +129,4 @@ module.exports = {
   update,
   deleteSpot,
   getValidated,
-  addToFavorites,
 };

@@ -6,6 +6,7 @@ const http = require("http");
 //Routes
 const UserRoutes = require("./routes/api/user.routes");
 const SpotRoutes = require("./routes/api/spot.routes");
+const FavoriteRoutes = require("./routes/api/favorite.routes");
 
 const { connectDb } = require("./helpers/db");
 const { setError } = require("./helpers/utils");
@@ -41,9 +42,11 @@ app.use(morgan("dev"));
 //Routes
 app.use("/api/users", UserRoutes);
 app.use("/api/spots", SpotRoutes);
+app.use("/api/favorites/", FavoriteRoutes);
+//localhost:3000/api/favorites/favoritenumber
 
 //Not found routes
-app.use("*", (_req, _res, next) => {
+http: app.use("*", (_req, _res, next) => {
   return next(setError(404, "Route not found"));
 });
 
