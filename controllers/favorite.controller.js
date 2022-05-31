@@ -32,7 +32,6 @@ const removefromfavorites = (req, res, next) => {
 };
 
 const getfavoritespots = (req, res, next) => {
-  console.log("API GETFAVORITE", req);
   Favorite.find({ userFrom: req.body.userFrom }).exec((err, favorites) => {
     if (err) return res.status(400).send(err);
     return res.status(200).json({ success: true, favorites });

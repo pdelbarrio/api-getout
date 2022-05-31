@@ -11,7 +11,7 @@ const {
 FavoriteRoutes.post("/favoritenumber", favoritenumber);
 FavoriteRoutes.post("/favorited", favorited);
 FavoriteRoutes.post("/addtofavorites", addtofavorites);
-FavoriteRoutes.post("/removefromfavorites", removefromfavorites);
 FavoriteRoutes.post("/getfavoritedspots", getfavoritespots);
+FavoriteRoutes.post("/removefromfavorites", removefromfavorites);
 
 module.exports = FavoriteRoutes;
