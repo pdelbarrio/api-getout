@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { CATEGORIES } = require("../constants/categories");
+const { DISTRICTS } = require("../constants/districts");
 const Schema = mongoose.Schema;
 
 const spotSchema = new Schema(
@@ -15,6 +16,7 @@ const spotSchema = new Schema(
     validated: { type: Boolean, default: false },
     category: { type: String, enum: CATEGORIES, required: true },
     location: { type: String, required: true },
+    district: { type: String, enum: DISTRICTS, required: true },
     uploader: { type: Schema.Types.ObjectId, ref: "User", required: true },
     likes: [{ type: Schema.Types.ObjectId, ref: "User", required: true }],
   },
