@@ -43,7 +43,6 @@ app.use(morgan("dev"));
 app.use("/api/users", UserRoutes);
 app.use("/api/spots", SpotRoutes);
 app.use("/api/favorites/", FavoriteRoutes);
-//localhost:3000/api/favorites/favoritenumber
 
 //Not found routes
 http: app.use("*", (_req, _res, next) => {

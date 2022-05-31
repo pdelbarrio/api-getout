@@ -7,6 +7,7 @@ const favoriteSchema = new Schema(
     spotId: { type: String },
     spotName: { type: String },
     spotImage: { type: String },
+    spotUrl: { type: String },
   },
   {
     timestamps: true,
