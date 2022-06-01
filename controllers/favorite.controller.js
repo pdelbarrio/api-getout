@@ -4,7 +4,7 @@ const { setError } = require("../helpers/utils");
 // Async?? en front
 const favoritenumber = (req, res, next) => {
   //Find favorite information inside Favorite Collection by Spot ID
-  console.log(req.body);
+
   Favorite.find({ spotId: req.body.spotId }).exec((err, favorite) => {
     if (err) return res.status(400).send(err);
     res.status(200).json({ success: true, favoritenumber: favorite.length });
