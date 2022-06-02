@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 const spotSchema = new Schema(
   {
-    name: { type: String, required: true, unique: true },
+    name: { type: String, required: true },
     description: { type: String, required: true },
     image: {
       type: String,
