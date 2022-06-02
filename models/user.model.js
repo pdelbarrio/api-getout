@@ -13,7 +13,7 @@ const userSchema = new Schema(
       default:
         "https://res.cloudinary.com/getoutbcn/image/upload/v1619196200/users/avatar_lkjiqe.png",
     },
-    isAdmin: { type: Boolean, default: false },
+    role: { type: String, enum: ["guest", "user", "admin"], default: "user" },
     spots: [{ type: Schema.Types.ObjectId, ref: "Spot" }],
     favSpots: [{ type: Schema.Types.ObjectId, ref: "Spot" }],
   },
