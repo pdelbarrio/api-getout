@@ -7,8 +7,9 @@ const getValidated = async (req, res, next) => {
     // const skip = (page - 1) * 20;
     const spots = await Spot.find({ validated: true })
       .sort({ createdAt: "desc" })
-      .populate("uploader")
-      .limit(20);
+      .populate("uploader");
+
+    // .limit(20);
 
     return res.status(200).json({
       message: "Recovered validated spots",
