@@ -5,10 +5,11 @@ const getValidated = async (req, res, next) => {
   try {
     // const page = req.query.page ? parseInt(req.query.page) : 1;
     // const skip = (page - 1) * 20;
-    const spots = await Spot.find({ validated: true }).sort({
-      createdAt: "desc",
-    });
-    // .populate("uploader");
+    const spots = await Spot.find({ validated: true })
+      .sort({
+        createdAt: "desc",
+      })
+      .populate("uploader");
 
     return res.status(200).json({
       message: "Recovered validated spots",
